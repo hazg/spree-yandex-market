@@ -69,6 +69,6 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
   end
 
   def preferences_params
-    params.require(:preferences).permit(:preferred_currency, :preferred_short_name, :preferred_full_name, :preferred_url, :preferred_category, :preferred_wares, :preferred_local_delivery_cost)
+    params.require(:preferences).permit(:currency, :short_name, :full_name, :url, :category, :wares, :local_delivery_cost)
   end
 end
