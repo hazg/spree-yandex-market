@@ -37,9 +37,9 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
   def run_export
     command = case params[:exporter]
     when 'yandex_market'
-      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake spree_yandex_market:generate_ym &}
+      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake --trace spree_yandex_market:generate_ym &}
     when 'wikimart'
-      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake spree_yandex_market:generate_wikimart &}
+      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake --trace spree_yandex_market:generate_wikimart &}
     end
 
     logger.info "[ yandex market ] Запуск формирование файла экспорта из блока администрирования "
