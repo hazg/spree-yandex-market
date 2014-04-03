@@ -1,39 +1,38 @@
 <%= render :partial => 'spree/admin/yandex_market_settings/shared/configuration_menu' %>
 <%= content_tag :h3, t('configure_yandex_market.list_currency'), :class => "name" %>
 <%= form_tag(admin_yandex_market_settings_path, :method => :put) do -%>
-<label for="preferences_preferred_currency">
-  <%= t('configure_yandex_market.currency') %>
-  <%= text_field_tag('preferences[preferred_currency]', @config.preferred_currency, :size => 50) %>
-</label>
-<br class="clear" />
-<br class="clear" />
-<div>
-Валюты задються в  строке разделенные ';', праметры курса валюты разделяються ':'.
-Первая задаеться основная валюта магазина и курс должен равен 1.
-Параметры:
-<ol>
-  <li>Код валюты</li>
-  <li>Курс</li>
-  <li>Процент курса</li>
-</ol>
-Пример:
-<div>
-  <span>RUR:1;USD:CBRF:3;EUR:CBRF:0.2;</span>
-  <div>Задано три валюты: RUR - основная, USD - курс CBRF + 3%, EUR - курс CBRF + 0.2%</div> 
-</div>
-<span>Параметр курс может иметь следующие значения: CBRF, NBU, NBK и CB.</span>
-  <ul>
-    <li>CBRF - курс по Центральному банку РФ.</li>
-    <li>NBU - курс по Национальному банку Украины.</li>
-    <li>NBK - курс по Национальному банку Казахстана.</li>
-    <li>СВ - курс по банку той страны, к которой относится интернет-магазин по Своему региону, указанному в Партнерском интерфейсе Яндекс.Маркета.</li>
-  </ul>
-  <div class="warning">
-    Внимание!  При слишком значительном (больше 30%) отличии значения курса валюты от курса ЦБ РФ или НБУ информационные материалы считаются невалидными.
+  <label for="preferences_preferred_currency">
+    <%= t('configure_yandex_market.currency') %>
+    <%= text_field_tag('preferences[preferred_currency]', @config.preferred_currency, :size => 50) %>
+  </label>
+  <br class="clear" />
+  <br class="clear" />
+  <div>
+    <p>
+      Валюты задаются в строке с разделителем ';', параметры курса валюты разделяются ':'.
+      Первой задается основная валюта магазина, курс должен быть равен 1.
+    </p>
+    <p>Параметры:</p>
+    <ol>
+      <li>Код валюты</li>
+      <li>Курс</li>
+      <li>Процент курса</li>
+    </ol>
+    <p>Пример:</p>
+    <div>
+      <span>RUR:1;USD:CBRF:3;EUR:CBRF:0.2;</span>
+      <div>Задано три валюты: RUR - основная, USD - курс CBRF + 3%, EUR - курс CBRF + 0.2%</div>
+    </div>
+    <p>Параметр &laquo;курс&raquo; может иметь следующие значения: CBRF, NBU, NBK и CB.</p>
+    <ul>
+      <li>CBRF &mdash; курс по Центральному банку РФ.</li>
+      <li>NBU &mdash; курс по Национальному банку Украины.</li>
+      <li>NBK &mdash; курс по Национальному банку Казахстана.</li>
+      <li>СВ &mdash; курс по банку той страны, к которой относится интернет-магазин по Своему региону, указанному в Партнерском интерфейсе Яндекс.Маркета.</li>
+    </ul>
+    <div class="warning">
+      Внимание! При отличии значения курса валюты от курса ЦБ РФ или НБУ более, чем на 30%, информационные материалы считаются невалидными.
+    </div>
   </div>
-</div>
-<p class="form-buttons">
-  <%= button Spree.t('update') %> 
-  <%= Spree.t("or") %> <%= link_to Spree.t("cancel"), admin_yandex_market_settings_url %>
-</p>
+  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
 <% end -%>

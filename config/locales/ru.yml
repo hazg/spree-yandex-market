@@ -1,23 +1,23 @@
 ru:
-  yandex_market: Яндекс.Маркет
+  yandex_market: Я.Маркет
   yandex_market_wares_active: Весь доступный товар
   yandex_market_wares_on_hand: Только товар который есть в наличии
   configure_yandex_market:
-    title: Настройка Яндекс.Маркет
+    title: Настройка Яндекс.Маркета
     general: Основные настройки
     currency: Валюта
-    export_category: Категория выгрузки
+    export_category: Таксон (категория) выгрузки
     list_currency: Список валют
     export_wares: Отбор товара
     export_files: Сформированные файлы
-    export_files_for_ym: Сформированные файлы для Яндекс.Маркет
-    export_files_for_wm: Сформированные файлы для Викимарт
+    export_files_for_ym: Сформированные файлы для Яндекс.Маркета
+    export_files_for_wm: Сформированные файлы для Викимарта
     export_file: Ссылка на файл
     what_wares_export: Какой товар выгружать в Яндекс.Маркет
     all_active_wares: Весь активный товар 
     on_hand_wares: Только товар который есть в наличии
-    run_generate_file_ym: Запустить формирование файла для Яндекс.Маркет
-    run_generate_file_wm: Запустить формирование файла для Wikimart
+    run_generate_file_ym: Запустить формирование файла для Яндекс.Маркета
+    run_generate_file_wm: Запустить формирование файла для Викимарта
     download: Скачать
     name: Наименование
     date: Дата\Время
@@ -26,7 +26,7 @@ ru:
     model: Модель
     vendor_code: Код производителя
     country_of_manufacturer: Страна-производитель
-    type_prefix: Группа товаров\категория
+    type_prefix: Группа товаров/категория
     manufacturer_warranty: Есть официальная гарантия производителя
     local_delivery_cost: Стоимость доставки по своему региону
     short_name: Короткое название магазина (не более 20 символов)
@@ -37,7 +37,7 @@ ru:
     wares_type: Тип продукции
     basic_property: Поля для основного описания товара
     field_for: Поля для типа описания
-    book_property: "Поля для описания типа 'книга', 'аудиокнига' "
+    book_property: "Поля для описания типа &laquo;книга&raquo;, &laquo;аудиокнига&raquo; "
     author: Автор книги
     publisher: Издательство
     series: Серия
@@ -60,12 +60,12 @@ ru:
     director: Режиссер
     original_name: Оригинальное наименование
     video_country: Страна
-    music_video_property: "Поля для описания типа 'музыка', 'видео' "
-    event_ticket_property: "Поля для описания типа 'билеты на мероприятия' "
+    music_video_property: "Поля для описания типа &laquo;музыка&raquo;, &laquo;видео&raquo; "
+    event_ticket_property: "Поля для описания типа &laquo;билеты на мероприятия&raquo; "
     place: Место мероприятия
     hall: Зал
     hall_url_plan: Ссылка на картинку версии зала
     event_date: Дата и время сеанса
     is_premiere: Признак премьерности мероприятия
     is_kids: Признак детского мероприятия
-  export_to_yandex_market: Экспортировать в Яндекс-Маркет
+  export_to_yandex_market: Экспортировать в Яндекс.Маркет
