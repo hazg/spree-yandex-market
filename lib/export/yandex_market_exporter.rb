@@ -55,7 +55,7 @@ module Export
             xml.offers { # список товаров
               products = Spree::Product.active.master_price_gte(0.001)
               products = products.on_hand if @config.preferred_wares == "on_hand"
-              products = products.where(:export_to_yandex_market => true).group(:product_id)
+              products = products.where(:export_to_yandex_market => true).group('spree_variants.product_id')
               products.each do |product|
                 offer(xml, product, product.taxons.first) unless product.taxons.empty?
               end
