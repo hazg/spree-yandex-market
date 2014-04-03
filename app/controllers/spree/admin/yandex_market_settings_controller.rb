@@ -53,7 +53,6 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
     preferences_params.each do |name, value|
       @config.set_preference name, value
     end
-    @config.save!
 
     respond_to do |format|
       format.html {
