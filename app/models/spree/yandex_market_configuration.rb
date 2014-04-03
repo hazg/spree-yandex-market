@@ -1,6 +1,5 @@
 class Spree::YandexMarketConfiguration < Spree::Configuration
-  attr_accessible :preferred_currency, :preferred_short_name, :preferred_full_name, :preferred_url, :preferred_category, :preferred_wares, :preferred_local_delivery_cost
-  
+
   preference :category,        :string
   preference :currency,        :string
   preference :wares,           :string,  :default => "active"
@@ -14,7 +13,6 @@ class Spree::YandexMarketConfiguration < Spree::Configuration
   preference :email,           :string
   preference :local_delivery_cost, :float # стоимость доставки по своему региону
 
-  
   # wares property 
   preference :type_prefix,     :string, :default => "prefix"   # Группа товаров \ категория
   preference :vendor,          :string, :default => "vendor"        # Производитель
@@ -23,7 +21,7 @@ class Spree::YandexMarketConfiguration < Spree::Configuration
   preference :country_of_manufacturer, :string, :default => "country_of_manufacturer" #страны производства товара.
   preference :manufacturer_warranty, :string, :default => "manufacturer_warranty" # есть официальная гарантию производителя.
   preference :wares_type,      :string, :default => "wares_type"   # Тип Товара
-  
+
   # wares property Книги и АудиоКниги
   preference :author, :string            # Автор книги
   preference :publisher, :string         # Издательство
@@ -38,18 +36,18 @@ class Spree::YandexMarketConfiguration < Spree::Configuration
   preference :performed_by, :string      # Исполнитель. Если их несколько, перечисляются через запятую
   preference :storage, :string           # Носитель, на котором поставляется аудиокнига.
   preference :format, :string            # Формат аудиокниги.
-  preference :recording_length , :string # Время звучания задается в формате mm.ss (минуты.секунды).
-  
+  preference :recording_length, :string  # Время звучания задается в формате mm.ss (минуты.секунды).
+
   # wares property Музыка и Видео
-  preference :artist , :string          # Исполнитель
-  preference :title , :string           # Наименование 
+  preference :artist, :string           # Исполнитель
+  preference :title, :string            # Наименование 
   preference :music_video_year, :string # Год
-  preference :media , :string           # Носитель
-  preference :starring , :string        # Актеры
-  preference :director , :string        # Режиссер
-  preference :original_name , :string     # Оригинальное наименовани
+  preference :media, :string            # Носитель
+  preference :starring, :string         # Актеры
+  preference :director, :string         # Режиссер
+  preference :original_name, :string    # Оригинальное наименовани
   preference :video_country, :string    # Страна
-  
+
   # wares property Билеты
   preference :place, :string         # Место мероприятия
   preference :hall, :string          # Зал
@@ -57,6 +55,5 @@ class Spree::YandexMarketConfiguration < Spree::Configuration
   preference :event_date, :string    # Дата и время сеанса. Указываются в формате ISO 8601: YYYY-MM-DDThh:mm
   preference :is_premiere, :string   # Признак премьерности мероприятия
   preference :is_kids, :string       # Признак детского мероприятия
-  
-end
 
+end

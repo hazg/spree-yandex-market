@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseController  
   before_filter :get_config
-  
+
   def show
-    @taxons =  Spree::Taxon.roots
+    @taxons = Spree::Taxon.roots
   end
-  
+
   def general
-    @taxons =  Spree::Taxon.roots
+    @taxons = Spree::Taxon.roots
   end
-  
+
   def currency
   end
-  
+
   def ware_property
     @properties = Spree::Property.all
   end
-  
+
   def export_files
     directory = File.join(Rails.root, 'public', 'yandex_market', '**', '*')
     # нельзя вызывать стат, не удостоверившись в наличии файла!!111
@@ -33,7 +33,7 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
     @export_files_wikimart.reject! {|x| x.first == "wikimart.xml" }
     @export_files_wikimart.unshift(e) unless e.blank?
   end
-  
+
   def run_export
     command = case params[:exporter]
     when 'yandex_market'
@@ -41,18 +41,18 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
     when 'wikimart'
       %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake spree_yandex_market:generate_wikimart &}
     end
-    
+
     logger.info "[ yandex market ] Запуск формирование файла экспорта из блока администрирования "
     logger.info "[ yandex market ] команда - #{command} "
     system command
     flash[:notice] = "Обновите страницу через несколько минут."
     redirect_to export_files_admin_yandex_market_settings_url
   end
-  
-  def update   
-    @config.attributes = params[:preferences]
+
+  def update
+    @config.attributes = preferences_params
     @config.save!
-    
+
     respond_to do |format|
       format.html {
         redirect_to admin_yandex_market_settings_path
@@ -64,5 +64,9 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
 
   def get_config
     @config = Spree::YandexMarket::Config.instance
+  end
+
+  def preferences_params
+    params.require(:preferences).permit(:preferred_currency, :preferred_short_name, :preferred_full_name, :preferred_url, :preferred_category, :preferred_wares, :preferred_local_delivery_cost)
   end
 end
