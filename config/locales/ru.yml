@@ -1,5 +1,8 @@
 ru:
-  yandex_market: Я.Маркет
+  admin:
+    tab:
+      yandex_market: Я.Маркет
+  yandex_market: Яндекс.Маркет
   yandex_market_wares_active: Весь доступный товар
   yandex_market_wares_on_hand: Только товар который есть в наличии
   configure_yandex_market:
