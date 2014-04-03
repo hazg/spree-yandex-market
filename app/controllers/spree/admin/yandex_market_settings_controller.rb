@@ -50,7 +50,9 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
   end
 
   def update
-    @config.attributes = preferences_params
+    preferences_params.each do |name, value|
+      @config.set_preference name, value
+    end
     @config.save!
 
     respond_to do |format|
