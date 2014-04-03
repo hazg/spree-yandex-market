@@ -20,7 +20,7 @@
 
 Формирование файла экспорта:
 
-Файл формируется следующей командой: `RAILS_ENV=#{RAILS_ENV} rake spree:extensions:yandex_market:generate_yml`
+Файл формируется следующей командой: `RAILS_ENV=#{RAILS_ENV} rake spree:extensions:yandex_market:generate_ym`
 Сформированные файлы сохраняются в папку `ROOT_RAILS/public/yandex_market` с формируемым именем файла `yandex_market_%Y_%m_%d__%H_%M`.
 Для Яндекс.Робота создается линк на самый последний файл `ROOT_RAILS/public/yandex_market/yandex_market.gz`, который доступен по адресу `http://[host]/yandex_market/yandex_market.gz`
 Формирование файла можно делать через крон или запуском команды из блока администрирования.
