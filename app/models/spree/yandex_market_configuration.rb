@@ -1,4 +1,4 @@
-class Spree::YandexMarketConfiguration < Spree::Configuration
+class Spree::YandexMarketConfiguration < Spree::Preferences::Configuration
 
   preference :category,        :string
   preference :currency,        :string
