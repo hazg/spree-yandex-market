@@ -49,5 +49,5 @@
     <legend><span><%= t('configure_yandex_market.local_delivery_cost') %></span></legend>
     <%= text_field_tag "preferences[preferred_local_delivery_cost]", @config.preferred_local_delivery_cost %>
   </fieldset>  
-  <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
+  <%= render :partial => 'spree/admin/yandex_market_settings/shared/form_links' %>
 <% end -%>
