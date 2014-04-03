@@ -1,5 +1,3 @@
-= Yandex Market
-
 Экспорт товаров в Яндекс.Маркет
 ==============================
 Расширение предназначено для выгрузки списка товара в Яндекс.Маркет.(http://partner.market.yandex.ru/legal/tt/)
@@ -52,4 +50,4 @@
 
 
 
-Copyright (c) 2010-2012 pronix, divineforest, romul
+Copyright (c) 2010-2014 pronix, divineforest, romul, myfreeweb
