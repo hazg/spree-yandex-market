@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseController  
+class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseController
   before_filter :get_config
 
   def show
@@ -30,17 +30,15 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
   end
 
   def run_export
-    command = case params[:exporter]
-    when 'yandex_market'
-      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake --trace spree_yandex_market:generate_ym &}
-    when 'wikimart'
-      %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake --trace spree_yandex_market:generate_wikimart &}
-    end
-
-    logger.info "[ yandex market ] Запуск формирование файла экспорта из блока администрирования "
-    logger.info "[ yandex market ] команда - #{command} "
+    tasks = {
+      'yandex_market' => 'generate_ym',
+      'wikimart' => 'generate_wikimart'
+    }
+    command = %{cd #{Rails.root} && RAILS_ENV=#{Rails.env} rake --trace spree_yandex_market:#{tasks[params[:exporter]]} &}
+    logger.info "[ yandex market ] Starting Market export task from Spree admin interface"
+    logger.info "[ yandex market ] command: #{command} "
     system command
-    flash[:notice] = "Обновите страницу через несколько минут."
+    flash[:notice] = I18n.t 'configure_yandex_market.refresh_soon'
     redirect_to export_files_admin_yandex_market_settings_url
   end
 
