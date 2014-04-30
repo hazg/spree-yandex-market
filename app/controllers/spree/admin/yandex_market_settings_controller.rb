@@ -22,6 +22,7 @@ class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseControlle
     Dir[directory].map { |x| [File.basename(x), (File.file?(x) ? File.mtime(x) : Time.new(0))] }
     .reject(&:blank?)
     .sort_by(&:last)
+    .reverse
   end
 
   def export_files
