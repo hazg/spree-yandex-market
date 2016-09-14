@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_yandex_market'
-  s.version     = '3.0.0'
+  s.version     = '3.1.0.beta'
   s.summary     = 'Export products to Yandex.Market'
   s.required_ruby_version = '>= 1.9.0'
 
@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency('spree_core', '~> 3.0.0')
+  s.add_dependency('spree_core', '~> 3.1.0')
   s.add_dependency('nokogiri', '~> 1.6')
 end
