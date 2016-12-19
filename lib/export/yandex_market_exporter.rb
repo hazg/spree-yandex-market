@@ -22,6 +22,7 @@ module Export
 
       # Nokogiri::XML::Builder.new({ :encoding =>"utf-8"}, SCHEME) do |xml|
       Nokogiri::XML::Builder.new(:encoding =>"utf-8") do |xml|
+
         xml.doc.create_internal_subset('yml_catalog',
           nil,
           "shops.dtd"
@@ -53,12 +54,20 @@ module Export
             }
 
             xml.offers { # список товаров
-              products = Spree::Product.active.master_price_gte(0.001)
-              products = products.on_hand if @config.preferred_wares == "on_hand"
-              products = products.where(:export_to_yandex_market => true).group('spree_products.id')
+              products = Spree::Product.active
+              # products = products.on_hand if @config.preferred_wares == "on_hand"
+              # products = products.where(:export_to_yandex_market => true).group('spree_products.id')
               products.each do |product|
                 puts product.name
-                offer(xml, product, product.taxons.first) unless product.taxons.empty?
+                unless product.taxons.empty?
+                  if !product.variants.present?
+                    offer(xml, product.master, product.taxons.first)
+                  else
+                    product.variants.each do |variant|
+                      offer(xml, variant, variant.product.taxons.first)
+                    end
+                  end
+                end
               end
             }
           }
@@ -74,35 +83,41 @@ module Export
       "http://#{@host.sub(%r[^http://],'')}/#{path.sub(%r[^/],'')}"
     end
 
-    def offer(xml,product, cat)
-      offer_simple(xml, product, cat)
+    def offer(xml, variant, cat)
+      puts "Count1: #{variant.stock_items.sum(:count_on_hand)}"
+      if variant.stock_items.sum(:count_on_hand) > 0
+        puts 'XXX'
+        offer_simple(xml, variant, cat)
+      end
     end
 
-    def shared_xml(xml, product, cat)
-      xml.url product_url(product, :host => @host)
-      xml.price product.price
+    def shared_xml(xml, variant, cat)
+      xml.url product_url(variant.product, :host => @host).sub('/products/', '/')
+      xml.price variant.price
       xml.currencyId @currencies.first.first
       xml.categoryId cat.id
-      xml.picture path_to_url(product.images.first.attachment.url(:product, false)) unless product.images.empty?
+      xml.picture path_to_url(variant.product.images.first.attachment.url(:product, false)) unless variant.product.images.empty?
     end
 
-    def individual_xml(xml, product, cat, product_properties = {})
+    def individual_xml(xml, variant, cat, product_properties = {}, var = false)
       xml.delivery            true
       xml.local_delivery_cost @config.preferred_local_delivery_cost unless @config.preferred_local_delivery_cost.blank?
-      xml.name                product.name
+      puts((var ? variant.product.name : "#{variant.product.name} #{variant.options_text}"))
+      xml.name                (var ? variant.product.name : "#{variant.product.name} #{variant.options_text}")
       xml.vendorCode          product_properties[@config.preferred_vendor_code] if product_properties[@config.preferred_country_of_manufacturer].present?
-      xml.description         product.description if product.description.present?
+      xml.description         variant.product.description if variant.product.description.present?
       xml.country_of_origin   product_properties[@config.preferred_country_of_manufacturer] if product_properties[@config.preferred_country_of_manufacturer].present?
       xml.downloadable        false
+      xml.sku                 variant.product.sku
     end
 
-    def offer_simple(xml, product, cat)
+    def offer_simple(xml, variant, cat)
       product_properties = { }
-      product.product_properties.map {|x| product_properties[x.property_name] = x.value }
-      opt = { :id => product.id,  :available => product.available? }
+      variant.product.product_properties.map {|x| product_properties[x.property_name] = x.value }
+      opt = { :id => variant.product.id,  :available => variant.product.available? }
       xml.offer(opt) {
-        shared_xml(xml, product, cat)
-        individual_xml(xml, product, cat, product_properties)
+        shared_xml(xml, variant, cat)
+        individual_xml(xml, variant, cat, product_properties)
       }
     end
 
