@@ -108,7 +108,8 @@ module Export
       xml.description         variant.product.description if variant.product.description.present?
       xml.country_of_origin   product_properties[@config.preferred_country_of_manufacturer] if product_properties[@config.preferred_country_of_manufacturer].present?
       xml.downloadable        false
-      xml.sku                 variant.sku
+      xml.sku                 variant.sku2
+      xml.sku_old             variant.sku
     end
 
     def offer_simple(xml, variant, cat)
