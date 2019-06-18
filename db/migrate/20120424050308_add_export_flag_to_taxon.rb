@@ -1,4 +1,4 @@
-class AddExportFlagToTaxon < ActiveRecord::Migration
+class AddExportFlagToTaxon < ActiveRecord::Migration[5.2]
   def self.up
     add_column :spree_taxons, :export_to_yandex_market, :boolean, :default => true,
                :null => false

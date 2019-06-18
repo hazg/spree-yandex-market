@@ -1,5 +1,5 @@
 Spree::Admin::TaxonsController.class_eval do
-  after_filter :update_descendants_ym_flag, :only => :update
+  after_action :update_descendants_ym_flag, :only => :update
 
   private
 

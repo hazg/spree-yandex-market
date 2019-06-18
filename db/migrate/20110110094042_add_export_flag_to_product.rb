@@ -1,4 +1,4 @@
-class AddExportFlagToProduct < ActiveRecord::Migration
+class AddExportFlagToProduct < ActiveRecord::Migration[5.2]
   def self.up
     add_column :spree_products, :export_to_yandex_market, :boolean, :default=>true, :null=>false
   end

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Spree::Admin::YandexMarketSettingsController < Spree::Admin::BaseController
-  before_filter :get_config
+  before_action :get_config
 
   def show
     @taxons = Spree::Taxon.roots
