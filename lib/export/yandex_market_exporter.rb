@@ -86,17 +86,23 @@ module Export
     def offer(xml, variant, cat)
       puts "Count1: #{variant.stock_items.sum(:count_on_hand)}"
       if variant.stock_items.sum(:count_on_hand) > 0
-        puts 'XXX'
         offer_simple(xml, variant, cat)
       end
     end
 
     def shared_xml(xml, variant, cat)
+
+      if image = (variant.product.images.empty? ? false : variant.product.images.first)
+				image = Rails.application.routes.url_helpers.url_for(image.url(:large))
+			end
+
       xml.url product_url(variant.product, :host => @host).sub('/products/', '/')
       xml.price variant.price
       xml.currencyId @currencies.first.first
       xml.categoryId cat.id
-      xml.picture path_to_url(variant.product.images.first.attachment.url(:product, false)) unless variant.product.images.empty?
+      xml.picture image
+
+
     end
 
     def individual_xml(xml, variant, cat, product_properties = {}, var = false)
@@ -108,9 +114,13 @@ module Export
       xml.description         variant.product.description if variant.product.description.present?
       xml.country_of_origin   product_properties[@config.preferred_country_of_manufacturer] if product_properties[@config.preferred_country_of_manufacturer].present?
       xml.downloadable        false
-      xml.sku                 variant.sku
+      xml.model               variant.sku
       xml.id                  variant.id
-      xml.article             variant.sku2
+
+      product_properties.each do |pp|
+        xml.param({name: pp[0]}, pp[1])
+      end
+
     end
 
     def offer_simple(xml, variant, cat)

@@ -1,9 +1,9 @@
-require 'spree_core'
-
 module SpreeYandexMarket
   class Engine < Rails::Engine
+    require 'spree_core'
+    isolate_namespace Spree
     engine_name 'spree_yandex_market'
-    
+
     config.autoload_paths += %W(#{config.root}/lib)
 
     def self.activate
@@ -21,5 +21,5 @@ module SpreeYandexMarket
 
     config.to_prepare &method(:activate).to_proc
   end
-  
+
 end
