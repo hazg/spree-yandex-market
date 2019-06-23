@@ -84,7 +84,7 @@ module Export
     end
 
     def offer(xml, variant, cat)
-      puts "Count1: #{variant.stock_items.sum(:count_on_hand)}"
+      puts "Count: #{variant.stock_items.sum(:count_on_hand)}"
       if variant.stock_items.sum(:count_on_hand) > 0
         offer_simple(xml, variant, cat)
       end
