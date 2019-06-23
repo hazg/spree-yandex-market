@@ -116,6 +116,7 @@ module Export
       xml.downloadable        false
       xml.model               variant.sku
       # xml.id                  variant.id
+      # dd
 
       product_properties.each do |pp|
         xml.param({name: pp[0]}, pp[1])
