@@ -115,7 +115,7 @@ module Export
       xml.country_of_origin   product_properties[@config.preferred_country_of_manufacturer] if product_properties[@config.preferred_country_of_manufacturer].present?
       xml.downloadable        false
       xml.model               variant.sku
-      xml.id                  variant.id
+      # xml.id                  variant.id
 
       product_properties.each do |pp|
         xml.param({name: pp[0]}, pp[1])
