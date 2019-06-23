@@ -80,7 +80,7 @@ module Export
     private
 
     def path_to_url(path)
-      "http://#{@host.sub(%r[^http://],'')}/#{path.sub(%r[^/],'')}"
+      "https://#{@host.sub(%r[^https://],'')}/#{path.sub(%r[^/],'')}"
     end
 
     def offer(xml, variant, cat)
@@ -125,7 +125,7 @@ module Export
 
     def offer_simple(xml, variant, cat)
       product_properties = { }
-      variant.product.product_properties.map {|x| product_properties[x.property_name] = x.value }
+      variant.product.product_properties.map {|x| product_properties[x.property_presentation] = x.value }
       opt = { :id => variant.product.id,  :available => variant.product.available? }
       xml.offer(opt) {
         shared_xml(xml, variant, cat)
