@@ -4,7 +4,10 @@ module SpreeYandexMarket
     # isolate_namespace Spree
     engine_name 'spree_yandex_market'
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    #config.autoload_paths += %W(#{config.root}/lib)
+    # For production
+    # https://github.com/rails/rails/issues/13142#issuecomment-275492070
+    config.eager_load_paths += %W(#{config.root}/lib)
 
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
