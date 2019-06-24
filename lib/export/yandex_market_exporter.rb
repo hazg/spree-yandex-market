@@ -96,7 +96,7 @@ module Export
 				image = Rails.application.routes.url_helpers.url_for(image.url(:large))
 			end
 
-      xml.url product_url(variant.product, :host => @host).sub('/products/', '/')
+      xml.url product_url(variant.product, :host => @host)
       xml.price variant.price
       xml.currencyId @currencies.first.first
       xml.categoryId cat.id
