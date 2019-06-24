@@ -35,6 +35,8 @@ module Export
             xml.company @config.preferred_full_name
             xml.url     path_to_url('')
 
+            puts xml.url
+
             xml.currencies { # описание используемых валют в магазине
               @currencies && @currencies.each do |curr|
                 opt = {:id => curr.first, :rate => curr[1] }
