@@ -14,7 +14,7 @@ module Export
 
     def export
       @config = Spree::YandexMarket::Config.instance
-      @host = @config.preferred_url.sub(%r[^https://],'').sub(%r[/$], '')
+      @host = @config.preferred_url
       ActionController::Base.asset_host = @config.preferred_url
 
       @currencies = @config.preferred_currency.split(';').map{|x| x.split(':')}
@@ -34,8 +34,6 @@ module Export
             xml.name    @config.preferred_short_name
             xml.company @config.preferred_full_name
             xml.url     path_to_url('')
-
-            puts xml.url
 
             xml.currencies { # описание используемых валют в магазине
               @currencies && @currencies.each do |curr|
