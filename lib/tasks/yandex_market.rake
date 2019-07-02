@@ -12,32 +12,38 @@ namespace :spree_yandex_market do
     end
   end
 
+  desc "Generate Yandex.Market export filefor deploy"
+  task :generate_ym_deploy => :environment do
+    generate_export_file('yandex_market', true)
+  end
+
+
   desc "Generate Yandex.Market export file"
   task :generate_ym => :environment do
     generate_export_file
-  end
 
-  desc "Generate Torg.mail.ru export file"
-  task :generate_torg_mail_ru => :environment do
-    generate_export_file 'torg_mail_ru'
-  end
+    desc "Generate Torg.mail.ru export file"
+    task :generate_torg_mail_ru => :environment do
+      generate_export_file 'torg_mail_ru'
+    end
 
-  desc "Generates Olx export file"
-  task :generate_olx => :environment do
-    generate_export_file 'olx'
-  end
+    desc "Generates Olx export file"
+    task :generate_olx => :environment do
+      generate_export_file 'olx'
+    end
 
-  desc "Generates Kupitigra export file"
-  task :generate_kupitigra => :environment do
-    generate_export_file 'kupitigra'
-  end
+    desc "Generates Kupitigra export file"
+    task :generate_kupitigra => :environment do
+      generate_export_file 'kupitigra'
+    end
 
-  desc "Generates Wikimart export file"
-  task :generate_wikimart => :environment do
-    generate_export_file 'wikimart'
-  end
+    desc "Generates Wikimart export file"
+    task :generate_wikimart => :environment do
+      generate_export_file 'wikimart'
+    end
 
-  desc 'Generates MailRu export file'
+    desc 'Generates MailRu export file'
+  end
   task :generate_mail_ru => :environment do
     generate_export_file 'mail_ru'
   end
@@ -47,7 +53,7 @@ namespace :spree_yandex_market do
     generate_export_file 'lookmart'
   end
 
-  def generate_export_file(ts='yandex_market')
+  def generate_export_file(ts='yandex_market', relative = false)
     require File.expand_path(File.join(Rails.root, "config/environment"))
     require File.join(File.dirname(__FILE__), '..', "export/#{ts}_exporter.rb")
     puts File.join(Rails.root, "app/export/#{ts}_exporter_decorator.rb")
@@ -55,6 +61,7 @@ namespace :spree_yandex_market do
     require File.expand_path decorator_file if File.exists? decorator_file
 
     directory = File.join(Rails.root, 'public', "#{ts}")
+
     mkdir_p directory unless File.exist?(directory)
 
     ::Time::DATE_FORMATS[:ym] = "%Y-%m-%d %H:%M"
@@ -72,7 +79,12 @@ namespace :spree_yandex_market do
     puts 'Creating symlink...'
 
     # Делаем симлинк на ссылку файла yandex_market_last.gz
-    `ln -sf "#{tfile.path}" "#{File.join(directory, "#{ts}.xml")}"`
+    f_from = tfile_basename
+    f_to = "#{ts}.xml"
+
+    exec_ln = "ln -sf '#{f_from}' '#{f_to}'"
+
+    `cd "public/#{ts}";#{exec_ln};cd "#{Rails.root.to_s}"`
 
     # Удаляем лишнии файлы
     @config = Spree::YandexMarket::Config.instance
